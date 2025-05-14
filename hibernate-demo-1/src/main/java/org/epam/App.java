@@ -13,12 +13,10 @@ public class App {
         student.setFirstName("Jagdish");
         student.setLastName("Kamadi");
 
-        Address address = Address.builder()
-                .place("Pawani")
-                .landmark("Near water tank")
-                .pinCode("442304")
-                .build();
-
+        Address address = new Address();
+        address.setPlace("Pawani");
+        address.setLandmark("Near water tank");
+        address.setPinCode("442304");
         student.setAddress(address);
 
         // make the configuration first
@@ -33,10 +31,11 @@ public class App {
         Transaction tx = session.beginTransaction();
         session.persist(student);
 
+        Student student1 = session.get(Student.class, 1);
         // close the transaction
-        Student student1 = session.get(Student.class,1);
         tx.commit();
         // close the session
+        session.close();
 
         System.out.println(student1);
         session.close();
